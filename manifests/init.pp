@@ -23,19 +23,22 @@
 #
 # === Examples
 #
-#  class { 'nexus_proxy':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
-#  }
+#  include nexus_proxy
+#
+#    OR
+#
+#  class { 'nexus_proxy': }
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Patrick Double <pat@patdouble.com>
 #
 # === Copyright
 #
-# Copyright 2016 Your name here, unless otherwise noted.
+# Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 class nexus_proxy {
-
-
+	include nexus_proxy::deployed::m2
+	include nexus_proxy::deployed::npm
+	include nexus_proxy::deployed::thirdparty
 }
