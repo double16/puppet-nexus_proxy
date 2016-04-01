@@ -1,0 +1,15 @@
+{
+  "name": "nexus_proxy",
+  "version": "0.1.0",
+  "author": "pdouble16",
+  "summary": "Opinioned Nexus configuration for hosting a proxy",
+  "license": "Apache 2.0",
+  "source": "https://bitbucket.org/double16/puppet-nexus_proxy",
+  "project_page": "https://bitbucket.org/double16/puppet-nexus_proxy",
+  "issues_url": "https://bitbucket.org/double16/puppet-nexus_proxy/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"atlassian-nexus_rest","version_requirement":">= 0.6.0"}
+  ]
+}
+
