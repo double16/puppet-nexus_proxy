@@ -30,16 +30,16 @@ define nexus_proxy::node($version = $title) {
     remote_url => "https://nodejs.org/dist/v${version}/node-v${version}-darwin-x64.tar.gz",
   }
   nexus_proxy::thirdparty { "org/nodejs/node/${version}/node-${version}-win-x64.exe":
-    remote_url => "https://nodejs.org/dist/v${version}/node-v${version}/win-x64/node.exe",
+    remote_url => "https://nodejs.org/dist/v${version}//win-x64/node.exe",
   }
   nexus_proxy::thirdparty { "org/nodejs/node/${version}/node-${version}-win-x64.lib":
-    remote_url => "https://nodejs.org/dist/v${version}/node-v${version}/win-x64/node.lib",
+    remote_url => "https://nodejs.org/dist/v${version}/win-x64/node.lib",
   }
   nexus_proxy::thirdparty { "org/nodejs/node/${version}/node-${version}-win-x86.exe":
-    remote_url => "https://nodejs.org/dist/v${version}/node-v${version}/win-x86/node.exe",
+    remote_url => "https://nodejs.org/dist/v${version}/win-x86/node.exe",
   }
   nexus_proxy::thirdparty { "org/nodejs/node/${version}/node-${version}-win-x86.lib":
-    remote_url => "https://nodejs.org/dist/v${version}/node-v${version}/win-x86/node.lib",
+    remote_url => "https://nodejs.org/dist/v${version}/win-x86/node.lib",
   }
 }
 
