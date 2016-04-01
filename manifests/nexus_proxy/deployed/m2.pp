@@ -47,7 +47,7 @@ class nexus_proxy::deployed::m2 {
 	}
 
 	nexus_proxy::proxy_m2 { 'ossrh':
-	  remote_storage => 'https://oss.sonatype.org/content/repositories/snapshots',
+	  remote_storage => 'https://oss.sonatype.org/content/repositories/snapshots/',
 	  policy => 'snapshot',
 	}
 
