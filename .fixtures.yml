@@ -3,5 +3,8 @@ fixtures:
     stdlib:
       repo: 'git://github.com/puppetlabs/puppetlabs-stdlib.git'
       ref: '4.1.0'
+    nexus_rest:
+      repo: 'https://bitbucket.org/atlassian/puppet-module-nexus_rest'
+      ref: 'v0.6.0'
   symlinks:
-    proxy: "#{source_dir}"
+    nexus_proxy: "#{source_dir}"
