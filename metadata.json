@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "https://bitbucket.org/double16",
   "summary": "Opinioned Nexus configuration for hosting a proxy",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "https://bitbucket.org/double16/puppet-nexus_proxy",
   "project_page": "https://bitbucket.org/double16/puppet-nexus_proxy",
   "issues_url": "https://bitbucket.org/double16/puppet-nexus_proxy/issues",
