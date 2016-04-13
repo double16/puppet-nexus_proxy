@@ -38,7 +38,7 @@
 # Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 class nexus_proxy {
-	include nexus_proxy::deployed::m2
-	include nexus_proxy::deployed::npm
-	include nexus_proxy::deployed::thirdparty
+  include nexus_proxy::deployed::m2
+  include nexus_proxy::deployed::npm
+  include nexus_proxy::deployed::thirdparty
 }

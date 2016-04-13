@@ -27,7 +27,7 @@
 #
 # Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
-define nexus_proxy::proxy_m2($label = $title, $remote_storage, $policy = 'release') {
+define nexus_proxy::proxy_m2($remote_storage, $label = $title, $policy = 'release') {
   nexus_repository { $title:
     label                   => $label,
     provider_type           => 'maven2',

@@ -30,14 +30,14 @@
 #
 # Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
-define nexus_proxy::thirdparty($nexus_thirdparty_path = $title, $remote_url) {
+define nexus_proxy::thirdparty($remote_url, $nexus_thirdparty_path = $title) {
   include nexus_proxy::params
   exec { $nexus_thirdparty_path:
-    path    => ["/usr/bin", "/usr/sbin"],
+    path    => ['/usr/bin', '/usr/sbin'],
     command => "curl --fail --location --output /var/tmp/nexus_thirdparty.tmp ${remote_url} && curl --fail --upload-file /var/tmp/nexus_thirdparty.tmp -u ${nexus_proxy::params::nexus_username}:${nexus_proxy::params::nexus_password} ${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}",
     unless  => "curl -I --fail ${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}",
     tries   => 3,
-# 3 hours to account for the slow network
+    # 3 hours to account for the slow network
     timeout => 10800,
     require => Nexus_repository['thirdparty'],
   }

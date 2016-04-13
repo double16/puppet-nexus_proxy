@@ -23,7 +23,7 @@
 #
 # Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
-define nexus_proxy::proxy_npm($label = $title, $remote_storage) {
+define nexus_proxy::proxy_npm($remote_storage, $label = $title) {
   nexus_repository { $title:
     label                   => $label,
     provider_type           => 'npm',
