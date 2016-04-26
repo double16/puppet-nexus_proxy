@@ -1,0 +1,4 @@
+forge 'http://forge.puppetlabs.com'
+
+mod 'puppetlabs/docker_platform', '2.1.0'
+mod 'atlassian/nexus_rest', '0.6.0'

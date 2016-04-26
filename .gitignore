@@ -18,3 +18,6 @@ tmtags
 *.swp
 tags
 pkg/
+.vagrant
+vagrant/.tmp
+vagrant/.librarian
