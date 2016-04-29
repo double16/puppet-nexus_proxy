@@ -14,6 +14,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
 	cat >install <<INSTALLSCRIPT
+    # yum update will bring in docker >= 1.9 which we can't use
 	#yum -y update
 
 	# Get the development tools
