@@ -40,7 +40,7 @@ INSTALLSCRIPT
 #!/bin/sh -x
 export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
 rsync -r /vagrant/ /home/vagrant/working/modules/nexus_proxy/
-puppet apply --modulepath=/home/vagrant/working/modules -e 'include nexus_proxy' $@
+puppet apply --modulepath=/home/vagrant/working/modules -e 'include nexus_proxy' "\\\$@"
 APPLYFILE
     chmod +x apply
 
