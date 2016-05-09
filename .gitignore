@@ -25,3 +25,4 @@ vagrant/.librarian
 coverage
 log
 modules
+reports
