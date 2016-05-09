@@ -16,14 +16,13 @@ gem 'puppetlabs_spec_helper', '>= 0.1.0'
 gem 'puppet-lint', '>= 0.3.2'
 gem 'facter', '>= 1.7.0'
 gem 'metadata-json-lint', '>= 0.0.11'
-gem 'simplecov', :require => false, :group => :test
 gem 'ci_reporter', '< 2.0.0'
-
-group :system_tests do
-  gem 'beaker-rspec',                  *location_for(ENV['BEAKER_RSPEC_VERSION'] || '>= 3.4')
-  gem 'beaker',                        *location_for(ENV['BEAKER_VERSION'])
-  gem 'serverspec',                    :require => false
-  gem 'beaker-puppet_install_helper',  :require => false
-  gem 'master_manipulator',            :require => false
-  gem 'beaker-hostgenerator',          *location_for(ENV['BEAKER_HOSTGENERATOR_VERSION'])
-end
+gem 'simplecov'
+gem 'simplecov-json'
+gem 'simplecov-rcov'
+gem 'beaker-rspec',                  *location_for(ENV['BEAKER_RSPEC_VERSION'] || '>= 3.4')
+gem 'beaker',                        *location_for(ENV['BEAKER_VERSION'])
+gem 'serverspec'
+gem 'beaker-puppet_install_helper'
+gem 'master_manipulator'
+gem 'beaker-hostgenerator',          *location_for(ENV['BEAKER_HOSTGENERATOR_VERSION'])
