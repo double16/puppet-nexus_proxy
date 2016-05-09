@@ -52,6 +52,7 @@ class nexus_proxy::deployed::m2 {
   }
 
   # TODO: pick up repositories list from all instances of `nexus_proxy::proxy_m2`
+  Nexus_proxy::Proxy_m2 <| |> ->
   nexus_repository_group { 'public':
     label         => 'Public Repositories',
     provider_type => 'maven2',

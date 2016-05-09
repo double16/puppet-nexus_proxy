@@ -18,6 +18,7 @@ class nexus_proxy::deployed::npm {
   }
 
   # TODO: pick up repositories list from all instances of `nexus_proxy::proxy_npm`
+  Nexus_proxy::Proxy_npm <| |> ->
   nexus_repository_group { 'npm-all':
     label         => 'npm-all',
     provider_type => 'npm',

@@ -1,9 +1,29 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
+def location_for(place, version = nil)
+  if place =~ /^(git[:@][^#]*)#(.*)/
+    [version, { :git => $1, :branch => $2, :require => false}].compact
+  elsif place =~ /^file:\/\/(.*)/
+    ['>= 0', { :path => File.expand_path($1), :require => false}]
+  else
+    [place, version, { :require => false}].compact
+  end
+end
+
 puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 3.3']
 gem 'puppet', puppetversion
 gem 'puppetlabs_spec_helper', '>= 0.1.0'
 gem 'puppet-lint', '>= 0.3.2'
 gem 'facter', '>= 1.7.0'
 gem 'metadata-json-lint', '>= 0.0.11'
+gem 'simplecov', :require => false, :group => :test
+gem 'ci_reporter', '< 2.0.0'
 
+group :system_tests do
+  gem 'beaker-rspec',                  *location_for(ENV['BEAKER_RSPEC_VERSION'] || '>= 3.4')
+  gem 'beaker',                        *location_for(ENV['BEAKER_VERSION'])
+  gem 'serverspec',                    :require => false
+  gem 'beaker-puppet_install_helper',  :require => false
+  gem 'master_manipulator',            :require => false
+  gem 'beaker-hostgenerator',          *location_for(ENV['BEAKER_HOSTGENERATOR_VERSION'])
+end

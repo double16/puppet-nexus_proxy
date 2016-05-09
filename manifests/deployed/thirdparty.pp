@@ -12,6 +12,7 @@
 # Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 class nexus_proxy::deployed::thirdparty {
+  Nexus_proxy::Thirdparty <| |> ->
   nexus_repository { 'thirdparty':
     label         => '3rd party',
     provider_type => 'maven2',

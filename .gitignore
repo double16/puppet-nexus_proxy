@@ -21,3 +21,7 @@ pkg/
 .vagrant
 vagrant/.tmp
 vagrant/.librarian
+.tmp
+coverage
+log
+modules
