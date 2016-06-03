@@ -34,4 +34,5 @@ class nexus_proxy::deployed::thirdparty {
   nexus_proxy::node { '5.9.1': }
   nexus_proxy::node { '6.1.0': }
   nexus_proxy::node { '6.2.0': }
+  nexus_proxy::grails { '2.5.4': }
 }
