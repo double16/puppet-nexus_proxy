@@ -1,0 +1,7 @@
+pipelines:
+  default:
+    - step:
+        script:
+          - bundle install
+          - bundle exec rake validate
+          - bundle exec rake spec
