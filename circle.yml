@@ -1,8 +1,8 @@
 machine:
   services:
     - docker
-  ruby:
-    version: rbx-2.2.6
+#  ruby:
+#    version: rbx-2.2.6
   environment:
     PUPPET_INSTALL_TYPE: agent
     BEAKER_debug: true
