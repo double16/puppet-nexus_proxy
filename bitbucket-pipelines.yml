@@ -1,7 +1,11 @@
+image: ruby:2.3.0
+
 pipelines:
   default:
     - step:
         script:
+          - ruby --version
+          - bundler --version
           - bundle install
           - bundle exec rake validate
           - bundle exec rake spec
