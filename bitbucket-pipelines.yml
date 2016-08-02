@@ -7,7 +7,8 @@ pipelines:
           - ruby --version
           - bundler --version
           - bundle install
-          - bundle exec rake --require 'ci/reporter/rake/rspec' build ci:setup:rspec spec check:dot_underscore lint validate
+          - bundle exec rake --require 'ci/reporter/rake/rspec' build ci:setup:rspec spec
+          - bundle exec rake check:dot_underscore lint validate
 #          - PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_color=no BEAKER_set="centos-7" bundle exec rake beaker
 #          - PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_color=no BEAKER_set="ubuntu-14.04" bundle exec rake beaker
 
