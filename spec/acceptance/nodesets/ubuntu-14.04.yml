@@ -3,6 +3,7 @@ HOSTS:
     platform: ubuntu-14.04-amd64
     hypervisor: docker
     image: ubuntu:14.04
+    type: foss
     docker_preserve_image: true
     docker_cmd: '["/sbin/init"]'
     docker_image_commands:

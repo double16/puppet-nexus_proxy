@@ -1,17 +1,21 @@
 machine:
   services:
     - docker
-#  ruby:
-#    version: rbx-2.2.6
   environment:
-    PUPPET_INSTALL_TYPE: agent
+    PUPPET_INSTALL_TYPE: foss
+    PUPPET_INSTALL_VERSION: 3.8.7
+    PUPPET_VERSION: 3.8.7
     BEAKER_debug: true
     BEAKER_color: no
 
 test:
   override:
+    - ruby --version
+    - bundler --version
     - bundle exec rake --require 'ci/reporter/rake/rspec' build ci:setup:rspec spec
     - bundle exec rake check:dot_underscore lint validate
-    - BEAKER_set="centos-7" bundle exec rake beaker
-    - BEAKER_set="ubuntu-14.04" bundle exec rake beaker
-
+#    - BEAKER_set="centos-7" bundle exec rake beaker
+#    - BEAKER_set="ubuntu-14.04" bundle exec rake beaker
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/rspec/
+    - find . -type f -regex "./reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/rspec/ \;

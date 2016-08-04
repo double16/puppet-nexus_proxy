@@ -10,10 +10,10 @@ def location_for(place, version = nil)
   end
 end
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 3.3']
+puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 3.3, < 4']
 gem 'puppet', puppetversion
 gem 'puppetlabs_spec_helper', '>= 0.1.0'
-gem 'puppet-lint', '>= 0.3.2'
+gem 'puppet-lint', '>= 2.0.0'
 gem 'facter', '>= 1.7.0'
 gem 'metadata-json-lint', '>= 0.0.11'
 gem 'ci_reporter_rspec', '>= 1.0.0'
@@ -26,3 +26,4 @@ gem 'serverspec'
 gem 'beaker-puppet_install_helper'
 gem 'master_manipulator'
 gem 'beaker-hostgenerator',          *location_for(ENV['BEAKER_HOSTGENERATOR_VERSION'])
+gem 'safe_yaml', '~> 1.0.4'

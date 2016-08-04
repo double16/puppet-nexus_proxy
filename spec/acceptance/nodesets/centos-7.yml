@@ -3,6 +3,7 @@ HOSTS:
     platform: el-7-x86_64
     hypervisor: docker
     image: centos:7
+    type: foss
     docker_preserve_image: true
     docker_cmd: '["/usr/sbin/init"]'
     # install various tools required to get the image up to usable levels
