@@ -40,5 +40,6 @@
 class nexus_proxy {
   include nexus_proxy::deployed::m2
   include nexus_proxy::deployed::npm
+  include nexus_proxy::deployed::gems
   include nexus_proxy::deployed::thirdparty
 }
