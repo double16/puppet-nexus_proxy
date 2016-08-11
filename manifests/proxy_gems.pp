@@ -27,7 +27,7 @@
 define nexus_proxy::proxy_gems($remote_storage, $label = $title) {
   nexus_repository { $title:
     label                   => $label,
-    provider_type           => 'Rubygems',
+    provider_type           => 'rubygems',
     type                    => 'proxy',
     policy                  => 'mixed',
     write_policy            => 'read_only',
