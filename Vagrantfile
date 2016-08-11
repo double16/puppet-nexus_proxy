@@ -2,12 +2,17 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "centos/7"
+  config.vm.box = "bento/centos-7.2"
 
   config.vm.network "forwarded_port", guest: 8081, host: 8081
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1500"
+  end
+
+  config.vm.provider "vmware_fusion" do |v|
+    v.vmx["memsize"] = "1500"
+    v.vmx["numvcpus"] = "2"
   end
 
   config.vm.synced_folder ".", "/vagrant"
