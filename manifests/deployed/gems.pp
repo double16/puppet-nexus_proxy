@@ -13,7 +13,7 @@
 #
 class nexus_proxy::deployed::gems {
   nexus_proxy::proxy_gems { 'rubygems':
-    remote_storage => 'https://rubygems.org',
+    remote_storage => 'https://rubygems.org/',
   }
 
   # TODO: pick up repositories list from all instances of `nexus_proxy::proxy_gems`
