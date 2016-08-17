@@ -30,6 +30,7 @@ class nexus_proxy::deployed::thirdparty {
   nexus_proxy::gradle { '2.12': }
   nexus_proxy::gradle { '2.13': }
   nexus_proxy::gradle { '2.14.1': }
+  nexus_proxy::gradle { '3.0': }
   nexus_proxy::node { '4.3.2': }
   nexus_proxy::node { '4.4.7': }
   nexus_proxy::node { '5.9.1': }
