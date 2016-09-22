@@ -26,16 +26,14 @@ class nexus_proxy::deployed::thirdparty {
   # TODO: Configure these in hiera
   nexus_proxy::phantomjs { '1.9.8': }
   nexus_proxy::phantomjs { '2.1.1': }
-  nexus_proxy::gradle { '2.11': }
-  nexus_proxy::gradle { '2.12': }
   nexus_proxy::gradle { '2.13': }
   nexus_proxy::gradle { '2.14.1': }
   nexus_proxy::gradle { '3.0': }
+  nexus_proxy::gradle { '3.1': }
   nexus_proxy::node { '4.3.2': }
   nexus_proxy::node { '4.4.7': }
-  nexus_proxy::node { '5.9.1': }
-  nexus_proxy::node { '6.1.0': }
-  nexus_proxy::node { '6.2.0': }
+  nexus_proxy::node { '4.5.0': } # LTS
+  nexus_proxy::node { '6.6.0': } # Current
   nexus_proxy::grails { '2.5.4': }
   nexus_proxy::grails { '2.5.5': }
 }
