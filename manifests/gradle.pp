@@ -23,9 +23,9 @@
 #
 define nexus_proxy::gradle($version = $title) {
   nexus_proxy::thirdparty { "org/gradle/wrapper/${version}/gradle-${version}-all.zip":
-    remote_url => "https://services.gradle.org/distributions/gradle-${version}-all.zip",
+    remote_url => "https://downloads.gradle.org/distributions/gradle-${version}-all.zip",
   }
   nexus_proxy::thirdparty { "org/gradle/wrapper/${version}/gradle-${version}-bin.zip":
-    remote_url => "https://services.gradle.org/distributions/gradle-${version}-bin.zip",
+    remote_url => "https://downloads.gradle.org/distributions/gradle-${version}-bin.zip",
   }
 }
