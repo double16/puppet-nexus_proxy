@@ -46,6 +46,10 @@ class nexus_proxy::deployed::m2 {
     remote_storage => 'http://repository-saucelabs.forge.cloudbees.com/release/',
   }
 
+  nexus_proxy::proxy_m2 { 'confluent':
+    remote_storage => 'http://packages.confluent.io/maven/',
+  }
+
   nexus_proxy::proxy_m2 { 'ossrh':
     remote_storage => 'https://oss.sonatype.org/content/repositories/snapshots/',
     policy         => 'snapshot',
@@ -68,6 +72,7 @@ class nexus_proxy::deployed::m2 {
       'gradle-plugins',
       'central2',
       'saucelabs-m2',
+      'confluent',
       'bintray-alkemist',
     ],
   }
