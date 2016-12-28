@@ -1,7 +1,7 @@
 
-$dockerVersion = $::operatingsystem ? { 'Ubuntu' => '1.10.3-0~trusty', 'CentOS' => '1.10.3-1.el7.centos', default => '1.10.3' }
+$docker_version = $::operatingsystem ? { 'Ubuntu' => '1.10.3-0~trusty', 'CentOS' => '1.10.3-1.el7.centos', default => '1.10.3' }
 class { '::docker':
-  version      => $dockerVersion,
+  version      => $docker_version,
   docker_users => [ 'vagrant' ],
 }
 
