@@ -55,6 +55,10 @@ class nexus_proxy::deployed::m2 {
     policy         => 'snapshot',
   }
 
+  nexus_proxy::proxy_m2 { 'bedatadriven':
+    remote_storage => 'https://nexus.bedatadriven.com/content/groups/public/',
+  }
+
   # TODO: pick up repositories list from all instances of `nexus_proxy::proxy_m2`
   Nexus_proxy::Proxy_m2 <| |> ->
   nexus_repository_group { 'public':
@@ -67,12 +71,13 @@ class nexus_proxy::deployed::m2 {
       'thirdparty',
       'jcenter',
       'central',
+      'central2',
       'grails-core',
       'grails-plugins',
       'gradle-plugins',
-      'central2',
       'saucelabs-m2',
       'confluent',
+      'bedatadriven',
       'bintray-alkemist',
     ],
   }
