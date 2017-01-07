@@ -3,8 +3,8 @@ machine:
     - docker
   environment:
     PUPPET_INSTALL_TYPE: foss
-    PUPPET_INSTALL_VERSION: 3.8.7
-    PUPPET_VERSION: 3.8.7
+    PUPPET_INSTALL_VERSION: 4.8.1
+    PUPPET_VERSION: 4.8.1
     BEAKER_debug: true
     BEAKER_color: no
 
