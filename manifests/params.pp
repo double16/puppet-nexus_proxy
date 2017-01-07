@@ -21,4 +21,9 @@ class nexus_proxy::params {
     $nexus_username = 'admin'
     $nexus_password = 'admin123'
   }
+  if $vagrant_cache_dir {
+    $thirdparty_cache_dir = $vagrant_cache_dir
+  } else {
+    $thirdparty_cache_dir = '/tmp'
+  }
 }

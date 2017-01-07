@@ -32,14 +32,25 @@
 #
 define nexus_proxy::thirdparty($remote_url, $nexus_thirdparty_path = $title) {
   include nexus_proxy::params
-  exec { $nexus_thirdparty_path:
-    path    => ['/usr/bin', '/usr/sbin'],
-    command => "curl --silent --show-error --fail --location --output /var/tmp/nexus_thirdparty.tmp ${remote_url} && curl --silent --show-error --fail --upload-file /var/tmp/nexus_thirdparty.tmp -u ${nexus_proxy::params::nexus_username}:${nexus_proxy::params::nexus_password} ${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}", # lint:ignore:140chars
-    unless  => "curl -I --silent --fail ${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}",
-    tries   => 3,
-    # 3 hours to account for the slow network
-    timeout => 10800,
-    require => Nexus_repository['thirdparty'],
+
+  $nexus_thirdparty_path_http_response = generate("/usr/bin/curl", "-I", "--silent", "${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}")
+  $nexus_thirdparty_path_exists = $nexus_thirdparty_path_http_response.match(/HTTP\/[0-9.]+ 20[0-9]/) != undef
+
+  if !$nexus_thirdparty_path_exists {
+	$remote_url_md5 = md5($remote_url)
+	$path_to_cached = "${nexus_proxy::params::thirdparty_cache_dir}/nexus_proxy-thirdparty-${remote_url_md5}"
+
+	remote_file { $path_to_cached:
+	  ensure      => present,
+	  source      => $remote_url,
+	  # 3 hours to account for a slow network
+	  #timeout     => 10800,
+	}->
+	exec { "$nexus_thirdparty_path upload":
+	  path    => ['/usr/bin', '/usr/sbin'],
+	  command => "curl --silent --show-error --fail --upload-file ${path_to_cached} -u ${nexus_proxy::params::nexus_username}:${nexus_proxy::params::nexus_password} ${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}", # lint:ignore:140chars
+	  tries   => 3,
+	  require => Nexus_repository['thirdparty'],
+	}
   }
 }
-

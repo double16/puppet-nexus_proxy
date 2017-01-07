@@ -9,7 +9,7 @@
   "issues_url": "https://bitbucket.org/double16/puppet-nexus_proxy/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 4.0.0"},
-    {"name":"atlassian-nexus_rest","version_requirement":">= 0.6.0"}
+    {"name":"atlassian-nexus_rest","version_requirement":">= 0.8.0"},
+    {"name":"lwf-remote_file","version_requirement":">= 1.1.3"}
   ]
 }
-

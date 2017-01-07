@@ -1,12 +1,13 @@
 fixtures:
-  repositories:
+  forge_modules:
     stdlib:
-      repo: 'git://github.com/puppetlabs/puppetlabs-stdlib.git'
+      repo: 'puppetlabs/stdlib'
       ref: '4.1.0'
-      flags: --single-branch
     nexus_rest:
-      repo: 'https://bitbucket.org/atlassian/puppet-module-nexus_rest'
-      ref: 'v0.6.0'
-      flags: --single-branch
+      repo: 'atlassian-nexus_rest'
+      ref: '0.8.0'
+    remote_file:
+      repo: 'lwf-remote_file'
+      ref: '1.1.3'
   symlinks:
     nexus_proxy: "#{source_dir}"
