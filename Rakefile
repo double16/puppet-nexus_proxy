@@ -5,7 +5,7 @@ require 'puppet-lint/tasks/puppet-lint'
 PuppetLint.configuration.send('disable_140chars')
 PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp", "vendor/**/*.pp", "modules/**/*.pp"]
 # Configured to be recognizable by Jenkins warnings plugin
-PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
+#PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
 
 # Used by Jenkins to show tests report.
 require 'ci/reporter/rake/rspec'

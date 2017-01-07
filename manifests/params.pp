@@ -24,6 +24,6 @@ class nexus_proxy::params {
   if $facts['vagrant_cache_dir'] == undef {
     $thirdparty_cache_dir = '/tmp'
   } else {
-    $thirdparty_cache_dir = $vagrant_cache_dir
+    $thirdparty_cache_dir = $::vagrant_cache_dir
   }
 }
