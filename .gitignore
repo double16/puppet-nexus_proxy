@@ -28,3 +28,6 @@ modules
 reports
 .librarian
 vendor
+spec/fixtures/manifests
+spec/fixtures/module-working-dir
+spec/fixtures/modules
