@@ -27,14 +27,9 @@ class nexus_proxy::deployed::thirdparty {
   nexus_proxy::phantomjs { '1.9.8': }
   nexus_proxy::phantomjs { '2.1.1': }
   nexus_proxy::gradle { '2.14.1': }
-  nexus_proxy::gradle { '3.2.1': }
-  nexus_proxy::gradle { '3.3': }
   nexus_proxy::gradle { '3.4.1': }
-  nexus_proxy::node { '4.3.2': }
-  nexus_proxy::node { '4.4.7': }
-  nexus_proxy::node { '4.6.0': }
-  nexus_proxy::node { '6.9.5': } # LTS
-  nexus_proxy::node { '7.5.0': } # Current
+  nexus_proxy::node { '6.10.1': } # LTS
+  nexus_proxy::node { '7.7.4': } # Current
   nexus_proxy::grails { '2.3.11': }
-  nexus_proxy::grails { '2.5.5': }
+  nexus_proxy::grails { '2.5.6': }
 }
