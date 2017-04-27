@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://nexus:9081/content/groups/gems/
   specs:
     CFPropertyList (2.2.8)
     addressable (2.5.0)
