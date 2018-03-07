@@ -44,8 +44,8 @@ define nexus_proxy::thirdparty($remote_url, $nexus_thirdparty_path = $title) {
       source => $remote_url,
       # 3 hours to account for a slow network
       #timeout => 10800,
-    }->
-    exec { "${nexus_thirdparty_path} upload":
+    }
+    ->exec { "${nexus_thirdparty_path} upload":
       path    => ['/usr/bin', '/usr/sbin'],
       command => "curl --silent --show-error --fail --upload-file ${path_to_cached} -u ${nexus_proxy::params::nexus_username}:${nexus_proxy::params::nexus_password} ${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}", # lint:ignore:140chars
       tries   => 3,

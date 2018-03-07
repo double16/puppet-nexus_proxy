@@ -15,9 +15,7 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+Manages specific repository proxies in Nexus to make it easy to cache Maven, NPM, and Gem repos.
 
 ## Module Description
 

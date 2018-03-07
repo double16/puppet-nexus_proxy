@@ -12,19 +12,24 @@
 # Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 class nexus_proxy::deployed::gems {
-  nexus_proxy::proxy_gems { 'rubygems':
-    remote_storage => 'https://rubygems.org/',
+
+  $default_repos = {
+    'rubygems' => {
+      'remote_storage' => 'https://rubygems.org/',
+    }
   }
 
-  # TODO: pick up repositories list from all instances of `nexus_proxy::proxy_gems`
-  Nexus_proxy::Proxy_gems <| |> ->
-  nexus_repository_group { 'gems':
-    label         => 'Ruby Gems Repositories',
-    provider_type => 'rubygems',
-    exposed       => true,
-    repositories  => [
-      'rubygems',
-    ],
-  }
+  $repos = merge($default_repos, lookup('nexus_proxy::proxy_gems', Data, 'hash', {}))
+  unless empty($repos) {
+    ensure_resources('nexus_proxy::proxy_gems', $repos)
+    $names = keys($repos)
 
+    Nexus_proxy::Proxy_gems <| |>
+    ->nexus_repository_group { 'gems':
+      label         => 'Ruby Gems Repositories',
+      provider_type => 'rubygems',
+      exposed       => true,
+      repositories  => $names,
+    }
+  }
 }

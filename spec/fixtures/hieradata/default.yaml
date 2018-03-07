@@ -1,0 +1,26 @@
+---
+nexus_proxy::proxy_gems:
+
+nexus_proxy::proxy_m2:
+  grails-core:
+    remote_storage: https://repo.grails.org/grails/core/
+
+  grails-plugins:
+    remote_storage: http://repo.grails.org/grails/plugins/
+
+nexus_proxy::phantomjs:
+  - '1.9.8'
+  - '2.1.1'
+
+nexus_proxy::gradle:
+  - '2.14.1'
+  - '3.5.1'
+  - '4.6'
+
+nexus_proxy::node:
+  - '8.10.0'
+  - '9.7.1'
+
+nexus_proxy::grails:
+  - '2.5.6'
+  - '3.3.2'

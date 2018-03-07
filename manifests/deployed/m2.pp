@@ -9,77 +9,31 @@
 #
 # === Copyright
 #
-# Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
+# Copyright 2016-2018 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 class nexus_proxy::deployed::m2 {
-  nexus_proxy::proxy_m2 { 'central':
-    label          => 'Central',
-    remote_storage => 'https://repo1.maven.org/maven2/',
+
+  $default_repos = {
+    'central' => {
+      'label' => 'Central',
+      'remote_storage' => 'https://repo1.maven.org/maven2/',
+    },
+    'jcenter' => {
+      'remote_storage' => 'https://jcenter.bintray.com/',
+    }
   }
 
-  nexus_proxy::proxy_m2 { 'central2':
-    label          => 'central.maven.org',
-    remote_storage => 'http://central.maven.org/maven2/',
-  }
+  $repos = merge($default_repos, lookup('nexus_proxy::proxy_m2', Data, 'hash', {}))
+  unless empty($repos) {
+    ensure_resources('nexus_proxy::proxy_m2', $repos)
+    $names = keys($repos)
 
-  nexus_proxy::proxy_m2 { 'grails-core':
-    remote_storage => 'https://repo.grails.org/grails/core/',
+    Nexus_proxy::Proxy_m2 <| |>
+    ->nexus_repository_group { 'public':
+      label         => 'Public Repositories',
+      provider_type => 'maven2',
+      exposed       => true,
+      repositories  => $names,
+    }
   }
-
-  nexus_proxy::proxy_m2 { 'grails-plugins':
-    remote_storage => 'http://repo.grails.org/grails/plugins/',
-  }
-
-  nexus_proxy::proxy_m2 { 'gradle-plugins':
-    remote_storage => 'https://dl.bintray.com/gradle/gradle-plugins/',
-  }
-
-  nexus_proxy::proxy_m2 { 'jcenter':
-    remote_storage => 'https://jcenter.bintray.com/',
-  }
-
-  nexus_proxy::proxy_m2 { 'bintray-alkemist':
-    remote_storage => 'http://dl.bintray.com/alkemist/maven/',
-  }
-
-  nexus_proxy::proxy_m2 { 'saucelabs-m2':
-    remote_storage => 'http://repository-saucelabs.forge.cloudbees.com/release/',
-  }
-
-  nexus_proxy::proxy_m2 { 'confluent':
-    remote_storage => 'http://packages.confluent.io/maven/',
-  }
-
-  nexus_proxy::proxy_m2 { 'ossrh':
-    remote_storage => 'https://oss.sonatype.org/content/repositories/snapshots/',
-    policy         => 'snapshot',
-  }
-
-  nexus_proxy::proxy_m2 { 'bedatadriven':
-    remote_storage => 'https://nexus.bedatadriven.com/content/groups/public/',
-  }
-
-  # TODO: pick up repositories list from all instances of `nexus_proxy::proxy_m2`
-  Nexus_proxy::Proxy_m2 <| |> ->
-  nexus_repository_group { 'public':
-    label         => 'Public Repositories',
-    provider_type => 'maven2',
-    exposed       => true,
-    repositories  => [
-      'releases',
-      'snapshots',
-      'thirdparty',
-      'jcenter',
-      'central',
-      'central2',
-      'grails-core',
-      'grails-plugins',
-      'gradle-plugins',
-      'saucelabs-m2',
-      'confluent',
-      'bedatadriven',
-      'bintray-alkemist',
-    ],
-  }
-
 }

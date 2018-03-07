@@ -9,7 +9,7 @@
 #
 # === Copyright
 #
-# Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
+# Copyright 2016-2018 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 class nexus_proxy::deployed::thirdparty {
   nexus_repository { 'thirdparty':
@@ -23,14 +23,19 @@ class nexus_proxy::deployed::thirdparty {
     exposed       => true,
   }
 
-  # TODO: Configure these in hiera
-  nexus_proxy::phantomjs { '1.9.8': }
-  nexus_proxy::phantomjs { '2.1.1': }
-  nexus_proxy::gradle { '2.14.1': }
-  nexus_proxy::gradle { '3.4.1': }
-  nexus_proxy::gradle { '3.5': }
-  nexus_proxy::node { '6.10.1': } # LTS
-  nexus_proxy::node { '7.7.4': } # Current
-  nexus_proxy::grails { '2.3.11': }
-  nexus_proxy::grails { '2.5.6': }
+  lookup('nexus_proxy::phantomjs', Data, 'unique', []).each |$version| {
+    nexus_proxy::phantomjs { $version: }
+  }
+
+  lookup('nexus_proxy::gradle', Data, 'unique', []).each |$version| {
+    nexus_proxy::gradle { $version: }
+  }
+
+  lookup('nexus_proxy::node', Data, 'unique', []).each |$version| {
+    nexus_proxy::node { $version: }
+  }
+
+  lookup('nexus_proxy::grails', Data, 'unique', []).each |$version| {
+    nexus_proxy::grails { $version: }
+  }
 }

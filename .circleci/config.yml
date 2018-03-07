@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  build:
+    environment:
+      - PUPPET_INSTALL_TYPE: foss
+      - PUPPET_INSTALL_VERSION: 4.10.10
+      - PUPPET_VERSION: 4.10.10
+      - BEAKER_debug: true
+      - BEAKER_color: no
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - checkout
+      - run: ruby --version
+      - run: bundler --version
+
+      - restore_cache:
+          keys:
+            - gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-{{ arch }}-{{ .Branch }}
+            - gem-cache
+
+      - run: bundle install --path vendor/bundle
+      
+      - save_cache:
+          key: gem-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+      - run: bundle exec rake --require 'ci/reporter/rake/rspec' build ci:setup:rspec spec
+      - run: bundle exec rake check:dot_underscore lint validate
+#      - run: BEAKER_set="centos-7" bundle exec rake beaker
+#      - run: BEAKER_set="ubuntu-14.04" bundle exec rake beaker
+
+      - store_test_results:
+          path: reports

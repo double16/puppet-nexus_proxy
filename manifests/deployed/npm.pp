@@ -13,20 +13,23 @@
 #
 class nexus_proxy::deployed::npm {
 
-  nexus_proxy::proxy_npm { 'npmjs':
-    remote_storage => 'https://registry.npmjs.org/',
+  $default_repos = {
+    'npmjs' => {
+      'remote_storage' => 'https://registry.npmjs.org/',
+    }
   }
 
-  # TODO: pick up repositories list from all instances of `nexus_proxy::proxy_npm`
-  Nexus_proxy::Proxy_npm <| |> ->
-  nexus_repository_group { 'npm-all':
-    label         => 'npm-all',
-    provider_type => 'npm',
-    exposed       => true,
-    repositories  => [
-      'npmjs',
-    ],
-  }
+  $repos = merge($default_repos, lookup('nexus_proxy::proxy_npm', Data, 'hash', {}))
+  unless empty($repos) {
+    ensure_resources('nexus_proxy::proxy_npm', $repos)
+    $names = keys($repos)
 
+    Nexus_proxy::Proxy_npm <| |>
+    ->nexus_repository_group { 'npm-all':
+      label         => 'npm-all',
+      provider_type => 'npm',
+      exposed       => true,
+      repositories  => $names,
+    }
+  }
 }
-

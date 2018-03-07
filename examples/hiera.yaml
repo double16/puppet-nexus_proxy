@@ -1,0 +1,61 @@
+---
+nexus_proxy::proxy_gems:
+
+nexus_proxy::proxy_npm:
+
+nexus_proxy::proxy_m2:
+  central:
+    label: Central
+    remote_storage: https://repo1.maven.org/maven2/
+
+  central2:
+    label: central.maven.org
+    remote_storage: http://central.maven.org/maven2/
+
+  grails-core:
+    remote_storage: https://repo.grails.org/grails/core/
+
+  grails-plugins:
+    remote_storage: http://repo.grails.org/grails/plugins/
+
+  gradle-plugins:
+    remote_storage: https://dl.bintray.com/gradle/gradle-plugins/
+
+  gradle-plugins2:
+    remote_storage: https://plugins.gradle.org/m2/
+
+  jcenter:
+    remote_storage: https://jcenter.bintray.com/
+
+  bintray-alkemist:
+    remote_storage: http://dl.bintray.com/alkemist/maven/
+
+  saucelabs-m2:
+    remote_storage: http://repository-saucelabs.forge.cloudbees.com/release/
+
+  confluent:
+    remote_storage: http://packages.confluent.io/maven/
+
+  ossrh:
+    remote_storage: https://oss.sonatype.org/content/repositories/snapshots/
+    policy: snapshot
+
+  bedatadriven:
+    remote_storage: https://nexus.bedatadriven.com/content/groups/public/
+
+nexus_proxy::phantomjs:
+  - '1.9.8'
+  - '2.1.1'
+
+nexus_proxy::gradle:
+  - '2.14.1'
+  - '3.5.1'
+  - '4.6'
+
+nexus_proxy::node:
+  - '8.10.0'
+  - '9.7.1'
+
+nexus_proxy::grails:
+  - '2.5.6'
+  - '3.3.2'
