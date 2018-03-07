@@ -27,6 +27,19 @@ jobs:
           paths:
             - vendor/bundle
 
+      - restore_cache:
+          keys:
+            - modules-cache-{{ arch }}-{{ .Branch }}-{{ checksum ".fixtures.yml" }}
+            - modules-cache-{{ arch }}-{{ .Branch }}
+            - modules-cache
+
+      - run: bundle exec rake spec_prep
+      
+      - save_cache:
+          key: modules-cache-{{ arch }}-{{ .Branch }}-{{ checksum ".fixtures.yml" }}
+          paths:
+            - spec/fixtures/modules
+
       - run: bundle exec rake --require 'ci/reporter/rake/rspec' build ci:setup:rspec spec
       - run: bundle exec rake check:dot_underscore lint validate
 #      - run: BEAKER_set="centos-7" bundle exec rake beaker
