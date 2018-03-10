@@ -11,7 +11,9 @@
 #
 # Copyright 2016-2018 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
-class nexus_proxy::deployed::m2 {
+class nexus_proxy::deployed::m2(
+  $extra_repos = []
+) {
 
   $default_repos = {
     'central' => {
@@ -26,7 +28,7 @@ class nexus_proxy::deployed::m2 {
   $repos = merge($default_repos, lookup('nexus_proxy::proxy_m2', Data, 'hash', {}))
   unless empty($repos) {
     ensure_resources('nexus_proxy::proxy_m2', $repos)
-    $names = keys($repos)
+    $names = unique(['thirdparty'] + $extra_repos + keys($repos))
 
     Nexus_proxy::Proxy_m2 <| |>
     ->nexus_repository_group { 'public':

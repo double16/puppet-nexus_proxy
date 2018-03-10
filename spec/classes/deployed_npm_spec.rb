@@ -15,4 +15,13 @@ describe 'nexus_proxy' do
       'repositories'  => ['npmjs'],
     ) }
   end
+
+  context 'with extra repos' do
+    let(:params) { { 'npm_extra_repos' => ['releases', 'snapshots'] } }
+    it { should contain_nexus_repository_group('npm-all').with(
+      'provider_type' => 'npm',
+      'exposed'       => true,
+      'repositories'  => ['releases', 'snapshots', 'npmjs'],
+    ) }
+  end
 end

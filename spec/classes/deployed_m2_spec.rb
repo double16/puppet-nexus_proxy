@@ -25,7 +25,16 @@ describe 'nexus_proxy' do
     it { should contain_nexus_repository_group('public').with(
       'provider_type' => 'maven2',
       'exposed'       => true,
-      'repositories'  => ['central', 'jcenter', 'grails-core', 'grails-plugins'],
+      'repositories'  => ['thirdparty', 'central', 'jcenter', 'grails-core', 'grails-plugins'],
+    ) }
+  end
+
+  context 'with extra repos' do
+    let(:params) { { 'm2_extra_repos' => ['releases', 'snapshots'] } }
+    it { should contain_nexus_repository_group('public').with(
+      'provider_type' => 'maven2',
+      'exposed'       => true,
+      'repositories'  => ['thirdparty', 'releases', 'snapshots', 'central', 'jcenter', 'grails-core', 'grails-plugins'],
     ) }
   end
 end

@@ -15,4 +15,13 @@ describe 'nexus_proxy' do
       'repositories'  => ['rubygems'],
     ) }
   end
+
+  context 'with extra repos' do
+    let(:params) { { 'gems_extra_repos' => ['releases', 'snapshots'] } }
+    it { should contain_nexus_repository_group('gems').with(
+      'provider_type' => 'rubygems',
+      'exposed'       => true,
+      'repositories'  => ['releases', 'snapshots', 'rubygems'],
+    ) }
+  end
 end

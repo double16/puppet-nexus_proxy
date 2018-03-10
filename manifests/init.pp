@@ -1,25 +1,25 @@
 # == Class: nexus_proxy
 #
-# Full description of class nexus_proxy here.
+# Configure Nexus for proxying via types of repos. The repos can be defined
+# via hiera or puppet.
 #
 # === Parameters
 #
-# Document parameters here.
+# [*m2_extra_repos*]
+#   Extra proxy names to add to the 'public' Maven group. This is necessary
+#   when Puppet (or something else beside hiera) is used to define a proxy.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*npm_extra_repos*]
+#   Extra proxy names to add to the 'npm-all' NPM group. This is necessary
+#   when Puppet (or something else beside hiera) is used to define a proxy.
+#
+# [*gems_extra_repos*]
+#   Extra proxy names to add to the 'gems' RubyGems group. This is necessary
+#   when Puppet (or something else beside hiera) is used to define a proxy.
 #
 # === Variables
 #
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# No variables.
 #
 # === Examples
 #
@@ -35,11 +35,25 @@
 #
 # === Copyright
 #
-# Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
+# Copyright 2016-2018 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
-class nexus_proxy {
-  include nexus_proxy::deployed::m2
-  include nexus_proxy::deployed::npm
-  include nexus_proxy::deployed::gems
+class nexus_proxy(
+  $m2_extra_repos = [],
+  $npm_extra_repos = [],
+  $gems_extra_repos = [],
+) {
+
+  class { 'nexus_proxy::deployed::m2':
+    extra_repos => $m2_extra_repos,
+  }
+
+  class { 'nexus_proxy::deployed::npm':
+    extra_repos => $npm_extra_repos,
+  }
+
+  class { 'nexus_proxy::deployed::gems':
+    extra_repos => $gems_extra_repos,
+  }
+
   include nexus_proxy::deployed::thirdparty
 }

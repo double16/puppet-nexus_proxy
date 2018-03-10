@@ -33,7 +33,7 @@
 define nexus_proxy::thirdparty($remote_url, $nexus_thirdparty_path = $title) {
   include nexus_proxy::params
 
-  $nexus_thirdparty_path_exists = check_url("${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}")
+  $nexus_thirdparty_path_exists = check_url("${nexus_proxy::params::nexus_base_url}/content/repositories/thirdparty/${nexus_thirdparty_path}") # lint:ignore:140chars
 
   if !$nexus_thirdparty_path_exists {
     $remote_url_md5 = md5($remote_url)

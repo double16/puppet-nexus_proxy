@@ -9,9 +9,11 @@
 #
 # === Copyright
 #
-# Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
+# Copyright 2016-2018 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
-class nexus_proxy::deployed::gems {
+class nexus_proxy::deployed::gems(
+  $extra_repos = []
+) {
 
   $default_repos = {
     'rubygems' => {
@@ -22,7 +24,7 @@ class nexus_proxy::deployed::gems {
   $repos = merge($default_repos, lookup('nexus_proxy::proxy_gems', Data, 'hash', {}))
   unless empty($repos) {
     ensure_resources('nexus_proxy::proxy_gems', $repos)
-    $names = keys($repos)
+    $names = unique($extra_repos + keys($repos))
 
     Nexus_proxy::Proxy_gems <| |>
     ->nexus_repository_group { 'gems':
