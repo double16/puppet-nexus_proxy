@@ -3,9 +3,9 @@ fixtures:
     stdlib:
       repo: 'puppetlabs/stdlib'
       ref: '4.24.0'
-    nexus_rest:
-      repo: 'atlassian-nexus_rest'
-      ref: '0.8.0'
+    nexus3_rest:
+      repo: 'wandenberg/nexus3_rest'
+      ref: '3.11.0'
     remote_file:
       repo: 'lwf-remote_file'
       ref: '1.1.3'

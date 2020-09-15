@@ -22,7 +22,7 @@ docker::run { 'nexus':
 
 file { '/etc/puppetlabs/nexus3_rest.conf':
   ensure  => file,
-  source  => '/vagrant/vagrant/nexus_rest.conf',
+  source  => '/vagrant/vagrant/nexus3_rest.conf',
   replace => false,
   owner   => 'root',
   group   => 'root',

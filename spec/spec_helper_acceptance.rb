@@ -9,7 +9,7 @@ run_puppet_install_helper
 
 hosts.each do |host|
 	on host, puppet('module','install','puppetlabs-stdlib')
-	on host, puppet('module','install','atlassian/nexus_rest')
+	on host, puppet('module','install','wandenberg/nexus3_rest')
   end
 end
 
