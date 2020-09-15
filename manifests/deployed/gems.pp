@@ -27,10 +27,8 @@ class nexus_proxy::deployed::gems(
     $names = unique($extra_repos + keys($repos))
 
     Nexus_proxy::Proxy_gems <| |>
-    ->nexus_repository_group { 'gems':
-      label         => 'Ruby Gems Repositories',
+    ->nexus3_repository_group { 'gems':
       provider_type => 'rubygems',
-      exposed       => true,
       repositories  => $names,
     }
   }

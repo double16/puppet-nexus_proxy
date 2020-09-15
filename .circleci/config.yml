@@ -2,11 +2,11 @@ version: 2
 jobs:
   build:
     environment:
-      - PUPPET_INSTALL_TYPE: foss
-      - PUPPET_INSTALL_VERSION: 4.10.10
-      - PUPPET_VERSION: 4.10.10
-      - BEAKER_debug: true
-      - BEAKER_color: no
+      PUPPET_INSTALL_TYPE: foss
+      PUPPET_INSTALL_VERSION: 4.10.10
+      PUPPET_VERSION: 4.10.10
+      BEAKER_debug: "true"
+      BEAKER_color: "no"
     docker:
       - image: circleci/ruby:2.4.1
     steps:

@@ -31,10 +31,8 @@ class nexus_proxy::deployed::m2(
     $names = unique(['thirdparty'] + $extra_repos + keys($repos))
 
     Nexus_proxy::Proxy_m2 <| |>
-    ->nexus_repository_group { 'public':
-      label         => 'Public Repositories',
+    ->nexus3_repository_group { 'public':
       provider_type => 'maven2',
-      exposed       => true,
       repositories  => $names,
     }
   }

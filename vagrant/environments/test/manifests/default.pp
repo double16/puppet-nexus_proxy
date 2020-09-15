@@ -1,12 +1,5 @@
 
-$docker_version = $::operatingsystem ? {
-  'Ubuntu' => '17.12.1~ce-0~ubuntu',
-  'CentOS' => '17.12.1.ce-1.el7.centos',
-  default  => '17.12.1-ce',
-}
-
-package { 'docker-engine': ensure => absent, }
-->file { '/etc/sysctl.d/forwarding.conf':
+file { '/etc/sysctl.d/forwarding.conf':
   ensure  => file,
   owner   => 'root',
   group   => 'root',
@@ -16,25 +9,18 @@ net.ipv4.ip_forward = 1
 net.ipv6.conf.all.forwarding = 1
 ',
 }
-->remote_file { '/etc/yum.repos.d/docker-ce.repo':
-  source => 'https://download.docker.com/linux/centos/docker-ce.repo',
-}
-->package { ['device-mapper-persistent-data', 'lvm2']: }
-->package { 'docker-ce':
-  ensure => $docker_version,
-}
-->class { '::docker':
-  manage_package              => false,
-  use_upstream_package_source => false,
-  docker_users                => [ 'vagrant' ],
+->class { 'docker':
+  docker_users => [ 'vagrant' ],
 }
 
 docker::run { 'nexus':
-  image => 'sonatype/nexus:oss',
-  ports => ['8081:8081'],
+  image  => 'sonatype/nexus3:3.27.0',
+  ports  => ['8081:8081'],
+  detach => true,
+  restart_service  => true,
 }
 
-file { '/etc/puppet/nexus_rest.conf':
+file { '/etc/puppetlabs/nexus3_rest.conf':
   ensure  => file,
   source  => '/vagrant/vagrant/nexus_rest.conf',
   replace => false,
@@ -43,8 +29,8 @@ file { '/etc/puppet/nexus_rest.conf':
   mode    => '0640',
 }
 
-package { 'rest-client':
-  ensure   => installed,
-  provider => gem,
-}
+# package { 'rest-client':
+#   ensure   => installed,
+#   provider => gem,
+# }
 

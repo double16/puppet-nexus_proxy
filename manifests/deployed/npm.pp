@@ -27,10 +27,8 @@ class nexus_proxy::deployed::npm(
     $names = unique($extra_repos + keys($repos))
 
     Nexus_proxy::Proxy_npm <| |>
-    ->nexus_repository_group { 'npm-all':
-      label         => 'npm-all',
+    ->nexus3_repository_group { 'npm-all':
       provider_type => 'npm',
-      exposed       => true,
       repositories  => $names,
     }
   }

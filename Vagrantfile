@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "bento/centos-7.4"
+  config.vm.box = "bento/centos-7.8"
 
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
@@ -22,29 +22,28 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder ".", "/vagrant"
 
   config.vm.provision "shell", inline: <<-SHELL
-	cat >install <<INSTALLSCRIPT
-    # yum update will bring in docker >= 1.9 which we can't use
-	#yum -y update
+    yum -y update
 
-	# Get the development tools
-	yum groupinstall -y 'Development Tools'
-	yum install -y gcc-c++ glibc-headers openssl-devel readline libyaml-devel readline-devel zlib zlib-devel sqlite-devel ruby ruby-devel git
+    # Get the development tools
+    yum groupinstall -y 'Development Tools'
+    yum install -y gcc-c++ glibc-headers openssl-devel readline readline-devel zlib zlib-devel libyaml-devel sqlite-devel git
 
     # Install puppet
-    rpm -Uvh https://yum.puppetlabs.com/puppetlabs-release-pc1-el-7.noarch.rpm
+    yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    yum -y install https://yum.puppetlabs.com/puppet-release-el-7.noarch.rpm
     yum install -y puppet-agent
-    /opt/puppetlabs/puppet/bin/puppet apply -e "package { 'rest-client': provider => 'puppet_gem' }"
-    gem install --conservative --verbose librarian-puppet
-    export PATH="/usr/local/bin:/usr/local/sbin:/opt/puppetlabs/bin:${PATH}"
-    cd /vagrant/vagrant && librarian-puppet install "--path=/opt/puppetlabs/puppet/modules"
-INSTALLSCRIPT
-    chmod +x install
-    sudo ./install
     mkdir -p /etc/facter/facts.d
     echo "vagrant_cache_dir=/tmp/vagrant-cache" > /etc/facter/facts.d/vagrant_cache_dir.txt
+    /opt/puppetlabs/puppet/bin/puppet apply -e "package { 'rest-client': provider => 'puppet_gem' }"
+    /opt/puppetlabs/puppet/bin/gem install --conservative --verbose librarian-puppet
+    export PATH="/usr/local/bin:/usr/local/sbin:/opt/puppetlabs/bin:${PATH}"
+    echo "Configuring librarian-puppet tmp"
+    /opt/puppetlabs/puppet/bin/librarian-puppet config tmp --global "/home/vagrant/.tmp"
+    echo "librarian-puppet installing testing modules"
+    ( cd /vagrant/vagrant && /opt/puppetlabs/puppet/bin/librarian-puppet install --verbose "--path=/etc/puppetlabs/code/modules" )
 
 	# Apply the nexus_proxy module
-    ln -sf /opt/puppetlabs/puppet /etc/puppet
+  #  ln -sf /opt/puppetlabs/puppet /etc/puppet
 	mkdir -p /home/vagrant/working
 	cd /home/vagrant/working
 
@@ -64,8 +63,9 @@ forge 'https://forgeapi.puppetlabs.com'
 mod 'double16-nexus_proxy', :path => '/vagrant'
 PUPPETFILE
 
+    echo "librarian-puppet installing double16-nexus_proxy modules"
     export PATH="/usr/local/bin:/usr/local/sbin:/opt/puppetlabs/bin:${PATH}"
-	librarian-puppet install --verbose
+  	/opt/puppetlabs/puppet/bin/librarian-puppet install --verbose
 
   SHELL
 

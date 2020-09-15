@@ -25,22 +25,15 @@
 #
 # === Copyright
 #
-# Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
+# Copyright 2016-2020 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 define nexus_proxy::proxy_m2($remote_storage, $label = $title, $policy = 'release') {
-  nexus_repository { $title:
-    label                   => $label,
+  nexus3_repository { $title:
     provider_type           => 'maven2',
     type                    => 'proxy',
-    policy                  => $policy,
+    version_policy          => $policy,
     write_policy            => 'read_only',
-    remote_storage          => $remote_storage,
-    remote_download_indexes => true,
-    remote_auto_block       => true,
-    remote_file_validation  => true,
-    remote_checksum_policy  => 'warn',
-    browseable              => true,
-    indexable               => true,
-    exposed                 => true,
+    remote_url              => $remote_storage,
+    remote_auth_type        => 'none',
   }
 }

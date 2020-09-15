@@ -25,19 +25,11 @@
 # Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 define nexus_proxy::proxy_gems($remote_storage, $label = $title) {
-  nexus_repository { $title:
-    label                   => $label,
+  nexus3_repository { $title:
     provider_type           => 'rubygems',
     type                    => 'proxy',
-    policy                  => 'mixed',
     write_policy            => 'read_only',
-    remote_storage          => $remote_storage,
-    remote_download_indexes => false,
-    remote_auto_block       => true,
-    remote_file_validation  => true,
-    remote_checksum_policy  => 'ignore',
-    browseable              => true,
-    indexable               => false,
-    exposed                 => true,
+    remote_url              => $remote_storage,
+    remote_auth_type        => 'none',
   }
 }

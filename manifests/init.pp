@@ -43,6 +43,12 @@ class nexus_proxy(
   $gems_extra_repos = [],
 ) {
 
+  nexus3_anonymous_settings { 'global':
+    enabled  => true,
+    realm    => 'NexusAuthorizingRealm',
+    username => 'anonymous',
+  }
+
   class { 'nexus_proxy::deployed::m2':
     extra_repos => $m2_extra_repos,
   }

@@ -24,21 +24,12 @@
 # Copyright 2016 Patrick Double <pat@patdouble.com>, unless otherwise noted.
 #
 define nexus_proxy::proxy_npm($remote_storage, $label = $title) {
-  nexus_repository { $title:
-    label                   => $label,
+  nexus3_repository { $title:
     provider_type           => 'npm',
     type                    => 'proxy',
-    remote_storage          => $remote_storage,
-    remote_auto_block       => true,
-    remote_file_validation  => true,
-    browseable              => true,
-    exposed                 => true,
-    indexable               => false,
+    remote_url              => $remote_storage,
     write_policy            => 'read_only',
-    remote_download_indexes => false,
-    remote_checksum_policy  => 'ignore',
-    remote_artifact_max_age => 0,
-    remote_metadata_max_age => 0,
+    remote_auth_type        => 'none',
   }
 }
 
